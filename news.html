@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News | i-PSD Lab Engineering Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --accent: #001D3D;
+            --accent-hover: #003566;
+            --muted: #71717a;
+            --border: #e4e4e7;
+            --surface: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Frame */
+        .site-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.02);
+            min-height: 100vh;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .dot-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#e5e5e5 0.8px, transparent 0.8px);
+            background-size: 32px 32px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-label::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .news-card {
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            background: white;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 29, 61, 0.06);
+        }
+
+        .btn-brand {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.85rem 2.25rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-brand:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 29, 61, 0.2);
+        }
+
+        .news-category {
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #f97316; /* Alert accent */
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .hero-image-overlay {
+            background: linear-gradient(to right, rgba(0, 29, 61, 0.95), rgba(0, 29, 61, 0.4));
+        }
+
+        .read-more-link {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-link:hover {
+            gap: 1rem;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="dot-bg"></div>
+
+    <div class="site-container">
+        <!-- Top Utility Bar -->
+        <div class="border-b border-zinc-100 bg-white sticky top-0 z-[60]">
+            <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">VinUni Center for Environmental Intelligence</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#001D3D] transition">Portal</a>
+                    <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-[#001D3D] hover:underline transition">Connect</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="sticky top-[37px] z-50 glass-nav border-b border-zinc-100">
+            <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="/" class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-xl italic rounded-sm">i</div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight text-[#001D3D]">i-PSD LAB</h1>
+                        <p class="text-[9px] text-zinc-400 font-bold uppercase tracking-widest leading-none">Engineering Intelligence</p>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+					<a href="/team.html" class="hover:text-blue-600 transition">Team</a>
+		            <a href="/research.html" class="hover:text-blue-600 transition">Research</a>
+                    <a href="/projects.html" class="hover:text-blue-600 transition">Projects</a>
+                    <a href="/news.html" class="hover:text-blue-600 transition">News</a>
+                    <a href="/courses.html" class="hover:text-blue-600 transition">Courses</a>
+                    <a href="/opp.html" class="hover:text-blue-600 transition">Opportunities</a>
+                    <a href="/contact.html" class="btn-brand !py-2 !px-4">Get Involved</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="pt-24 pb-16 px-8 md:px-20 bg-gradient-to-b from-white to-zinc-50/50">
+            <div class="max-w-4xl">
+                <div class="section-label mb-20">Laboratory News</div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-[#001D3D] mb-8 tracking-tight">
+                    Latest <span class="text-zinc-300 italic font-light">Insights.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl">
+                    Announcements, research breakthroughs, and upcoming events from the 
+                    <span class="text-[#001D3D] font-semibold">Intelligent Power and Sensor Design</span> community.
+                </p>
+            </div>
+        </header>
+
+        <!-- Featured News -->
+        <section class="px-8 md:px-20 mb-24">
+            <div class="relative w-full h-[500px] overflow-hidden rounded-sm group">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Featured">
+                <div class="absolute inset-0 hero-image-overlay flex items-center p-12">
+                    <div class="max-w-2xl text-white">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-orange-400 mb-4 block">Major Breakthrough</span>
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">Implementing HMMC for Advanced Battery Safety Simulations</h2>
+                        <p class="text-zinc-300 font-light mb-8 text-lg">Dr. Hai Hung Pham and the team have successfully integrated Homogeneous Multiphase Complex Chemistry models to predict thermal runaway with 94% accuracy.</p>
+                        <a href="#" class="btn-brand">Read Article</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Grid -->
+        <main class="px-8 md:px-20 pb-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Card 1 -->
+                <div class="news-card p-8 flex flex-col">
+                    <span class="news-category">Publication</span>
+                    <h3 class="text-xl font-extrabold text-[#001D3D] mb-4 tracking-tight leading-snug">New paper on Multiscale Modeling for PCM Analysis accepted in Nature Electronics</h3>
+                    <p class="text-sm text-zinc-500 font-light mb-6 flex-grow italic">
+                        "Bridging the gap between microscopic heat transfer and macroscopic device performance using physics-informed neural networks."
+                    </p>
+                    <div class="pt-6 border-t border-zinc-100 flex justify-between items-center">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Feb 09, 2026</span>
+                        <a href="#" class="read-more-link">Read <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="news-card p-8 flex flex-col">
+                    <span class="news-category">Event</span>
+                    <h3 class="text-xl font-extrabold text-[#001D3D] mb-4 tracking-tight leading-snug">i-PSD Lab to host Workshop on Engineering Intelligence at VinUni</h3>
+                    <p class="text-sm text-zinc-500 font-light mb-6 flex-grow italic">
+                        Join us for a 3-day intensive workshop featuring industry leads from Siemens and NVIDIA.
+                    </p>
+                    <div class="pt-6 border-t border-zinc-100 flex justify-between items-center">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Jan 15, 2026</span>
+                        <a href="#" class="read-more-link">Details <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="news-card p-8 flex flex-col">
+                    <span class="news-category">Recruitment</span>
+                    <h3 class="text-xl font-extrabold text-[#001D3D] mb-4 tracking-tight leading-snug">Opening for 2 Fully Funded PhD Positions in EV Safety</h3>
+                    <p class="text-sm text-zinc-500 font-light mb-6 flex-grow italic">
+                        We are looking for researchers interested in the intersection of digital twins and fire safety engineering.
+                    </p>
+                    <div class="pt-6 border-t border-zinc-100 flex justify-between items-center">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Dec 20, 2025</span>
+                        <a href="#" class="read-more-link">Apply <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="news-card p-8 flex flex-col">
+                    <span class="news-category">Achievement</span>
+                    <h3 class="text-xl font-extrabold text-[#001D3D] mb-4 tracking-tight leading-snug">Dr. Ahmad Hajjar receives Young Investigator Award</h3>
+                    <p class="text-sm text-zinc-500 font-light mb-6 flex-grow italic">
+                        Recognized for pioneering work in sensor fusion for environmental monitoring in urban centers.
+                    </p>
+                    <div class="pt-6 border-t border-zinc-100 flex justify-between items-center">
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Nov 12, 2025</span>
+                        <a href="#" class="read-more-link">Read <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Pagination-style CTA -->
+            <div class="mt-20 text-center">
+                <a href="#" class="text-[10px] font-bold text-[#001D3D] uppercase tracking-[0.4em] border-b-2 border-[#001D3D] pb-2 hover:text-zinc-400 hover:border-zinc-300 transition">View Archive</a>
+            </div>
+        </main>
+
+        <!-- Newsletter / Connect -->
+        <section id="contact" class="py-24 px-8 md:px-20 border-t border-zinc-100 bg-zinc-50/50">
+            <div class="max-w-4xl mx-auto text-center">
+                <h4 class="text-4xl font-extrabold mb-6 tracking-tight text-[#001D3D]">Stay <span class="text-zinc-300 italic font-light">Updated</span></h4>
+                <p class="text-zinc-500 text-lg mb-10 font-light">Receive quarterly summaries of our research highlights and industrial partnerships.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Email Address" class="flex-grow bg-white border border-zinc-200 px-6 py-4 text-xs focus:border-[#001D3D] outline-none transition rounded-sm">
+                    <button type="submit" class="btn-brand">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-16 px-8 md:px-20 border-t border-zinc-100 bg-white">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center space-x-6">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-sm italic rounded-sm">i</div>
+                    <div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-[#001D3D] block">i-PSD LAB — © 2026</span>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Intelligence for Complex Engineering Challenges</span>
+                    </div>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
+                    <a href="#" class="hover:text-[#001D3D] transition">VinUniversity</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">CEI</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">i-PSD</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

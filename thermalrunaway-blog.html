@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Thermal Runaway Chemistry | i-PSD Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --accent: #001D3D;
+            --accent-hover: #003566;
+            --muted: #71717a;
+            --border: #e4e4e7;
+            --surface: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Frame */
+        .site-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.02);
+            min-height: 100vh;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .dot-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#e5e5e5 0.8px, transparent 0.8px);
+            background-size: 32px 32px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-label::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .btn-brand {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.85rem 2.25rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-brand:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 29, 61, 0.2);
+        }
+
+        .article-content p {
+            margin-bottom: 2rem;
+            font-weight: 300;
+            font-size: 1.125rem;
+            color: #3f3f46;
+        }
+
+        .article-content h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .callout-quote {
+            border-left: 3px solid var(--accent);
+            padding: 2rem;
+            margin: 3rem 0;
+            background: var(--surface);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.25rem;
+        }
+
+        .technical-sidebar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+        }
+
+        .tag-list span {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            margin-right: 8px;
+            color: var(--muted);
+        }
+
+        /* Post Outline Styles (Sticky Sidebar version) */
+        .toc-link {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s ease;
+            padding: 6px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .toc-link:hover {
+            color: #2563eb;
+            transform: translateX(4px);
+        }
+
+        .toc-link::before {
+            content: "";
+            width: 4px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .toc-link:hover::before {
+            background: #2563eb;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Nav Active States */
+        .nav-item-active {
+            border-left: 2px solid var(--accent);
+            padding-left: 1rem;
+            margin-left: -1rem;
+        }
+        
+        .nav-item-active h5 {
+            color: #2563eb !important;
+        }
+
+        .article-figure {
+            margin: 3rem 0;
+        }
+
+        .article-figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            border: 1px solid var(--border);
+            background: #f9f9f9;
+        }
+
+        .figure-caption {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Highlighted News Styling */
+        .highlight-card {
+            background: var(--accent);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::after {
+            content: "FEATURED";
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: #fbbf24;
+            color: #000;
+            font-size: 8px;
+            font-weight: 900;
+            padding: 2px 30px;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="dot-bg"></div>
+
+    <div class="site-container">
+        <!-- Top Utility Bar -->
+        <div class="border-b border-zinc-100 bg-white sticky top-0 z-[60]">
+            <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">VinUni Center for Environmental Intelligence</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#001D3D] transition">Portal</a>
+                    <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-[#001D3D] hover:underline transition">Connect</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="sticky top-[37px] z-50 glass-nav border-b border-zinc-100">
+            <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="/" class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-xl italic rounded-sm">i</div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight text-[#001D3D]">i-PSD LAB</h1>
+                        <p class="text-[9px] text-zinc-400 font-bold uppercase tracking-widest leading-none">Engineering Intelligence</p>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+					<a href="/team.html" class="hover:text-blue-600 transition">Team</a>
+		            <a href="/research.html" class="hover:text-blue-600 transition">Research</a>
+                    <a href="/projects.html" class="hover:text-blue-600 transition">Projects</a>
+                    <a href="/news.html" class="hover:text-blue-600 transition">News</a>
+                    <a href="/courses.html" class="hover:text-blue-600 transition">Courses</a>
+                    <a href="/opp.html" class="hover:text-blue-600 transition">Opportunities</a>
+                    <a href="/contact.html" class="btn-brand !py-2 !px-4">Get Involved</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Article Header -->
+        <header class="pt-24 pb-16 px-8 md:px-20 bg-white">
+            <div class="max-w-4xl mx-auto">
+                <div class="section-label mb-12">04 / Laboratory News</div>
+                <div class="tag-list mb-6">
+                    <span>Research Breakthrough</span>
+                    <span>Battery Safety</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-[#001D3D] mb-8 tracking-tight leading-[1.1]">
+                    We didn’t start the fire: <span class="text-zinc-300 italic font-light">Battery thermal runaway chemistry simulation.</span>
+                </h1>
+                <div class="flex items-center gap-6 border-y border-zinc-100 py-6">
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                        Words by <span class="text-[#001D3D]">Liam McManus</span>
+                    </div>
+                    <div class="w-1 h-1 bg-zinc-300 rounded-full"></div>
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                        Feb 09, 2026
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        <section class="px-8 md:px-20 mb-20">
+            <div class="max-w-6xl mx-auto">
+                <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=2000" class="w-full h-[600px] object-cover grayscale brightness-75 rounded-sm" alt="Technical Simulation Visualization">
+                <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-4 text-center italic">Figure 1: Complex CFD modeling of thermal propagation in high-energy density cells.</p>
+            </div>
+        </section>
+
+        <!-- Article Body -->
+        <main class="px-8 md:px-20 pb-32">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
+                
+                <div class="lg:col-span-8 article-content">
+                    <div id="intro">
+                        <p class="font-medium text-xl !text-[#001D3D] leading-relaxed">
+                            The worst-case scenario for any electric vehicle (EV) manufacturer is the uncontrolled release of energy within a battery pack. While rare, thermal runaway represents a critical safety threshold that defines the success of modern electrification.
+                        </p>
+
+                        <p>
+                            Ensuring battery safety is a multiscale challenge. From the fundamental chemistry occurring at the electrolyte-electrode interface to the macroscopic venting of flammable gases within a pack, engineers must account for every joule. Traditionally, this has relied on physical "burn tests"—expensive, destructive, and late-stage procedures.
+                        </p>
+                    </div>
+
+                    <h2 id="recap">Thermal Runaway: A Recap</h2>
+                    <p>
+                        Thermal runaway is a dangerous phenomenon where a battery cell overheats uncontrollably. It begins with a triggering event—overcharge, internal short, or external heating—which initiates a self-sustaining feedback loop. As temperatures rise, the solid electrolyte interphase (SEI) decomposes, followed by cathode breakdown and electrolyte combustion.
+                    </p>
+
+                    <div class="article-figure">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=1200" alt="Laboratory Thermal Testing">
+                        <div class="figure-caption">Figure 2: Real-time sensor telemetry during controlled cathode degradation.</div>
+                    </div>
+
+                    <div class="callout-quote">
+                        "Ensuring a reliable, efficient and safe battery management system with model-based design is no longer optional in the UAM and EV markets."
+                    </div>
+
+                    <h2 id="chemistry">The Devil is in the Detail: Chemistry</h2>
+                    <p>
+                        Inside a battery cell, we find multiple solids (anode, cathode, and separators) and a liquid electrolyte. When reactions occur, these components decompose to release flammable gases such as hydrogen and methane. 
+                    </p>
+                    
+                    <div class="article-figure">
+                        <img src="https://images.unsplash.com/photo-1532187643603-ba119ca4109e?auto=format&fit=crop&q=80&w=1200" alt="Chemical Reaction Simulation Output">
+                        <div class="figure-caption">Figure 3: Simulated HMMC gas generation profile vs temperature rise.</div>
+                    </div>
+
+                    <p>
+                        With the latest advancements in Simcenter STAR-CCM+, i-PSD Lab is exploring the <strong>Homogeneous Multiphase Complex Chemistry (HMMC)</strong> model. This allows our researchers to explicitly model the fundamental reactions triggered during runaway. Instead of relying on simplified heat source models, we can now simulate the actual gas generation and chemical heat release in real-time.
+                    </p>
+
+                    <div id="benchmarks" class="bg-zinc-50 border border-zinc-100 p-8 my-12">
+                        <h4 class="text-[11px] font-extrabold uppercase tracking-widest text-[#001D3D] mb-4">Laboratory Benchmarks</h4>
+                        <ul class="space-y-4 text-sm font-light text-zinc-600">
+                            <li class="flex gap-4">
+                                <span class="text-[#001D3D] font-bold">01.</span>
+                                <span>Cell-level detailed chemical kinetics integration.</span>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-[#001D3D] font-bold">02.</span>
+                                <span>HMMC modeling for venting and gas phase combustion.</span>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-[#001D3D] font-bold">03.</span>
+                                <span>Coupled thermal-fluid design for heat shield optimization.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h2 id="summary">Simulation as a Standard</h2>
+                    <p>
+                        Simulation is the only way to "test" these destructive events without the physical smoke and mirrors. By integrating these chemical models into the Digital Twin, we can predict safety margins before a single cell is ever manufactured.
+                    </p>
+                </div>
+
+                <!-- Right Sidebar Navigation (Now with Sticky Outline) -->
+                <aside class="lg:col-span-4">
+                    <div class="sticky top-40 space-y-12 h-[calc(100vh-160px)] overflow-y-auto pr-4 scrollbar-hide">
+                        
+                        <!-- Post Outline -->
+                        <div class="border-l-2 border-zinc-100 pl-8 pb-4">
+                            <h4 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#001D3D] mb-8 flex items-center gap-3">
+                                <span class="w-8 h-px bg-[#001D3D]"></span> Post Outline
+                            </h4>
+                            <nav class="flex flex-col gap-3">
+                                <a href="#intro" class="toc-link">Introduction</a>
+                                <a href="#recap" class="toc-link">Thermal Runaway</a>
+                                <a href="#chemistry" class="toc-link">Complex Chemistry</a>
+                                <a href="#benchmarks" class="toc-link">Lab Benchmarks</a>
+                                <a href="#summary" class="toc-link">Final Summary</a>
+                            </nav>
+                        </div>
+
+                        <!-- Highlighted News -->
+                        <div class="highlight-card">
+                            <span class="text-[8px] font-black uppercase tracking-[0.3em] text-yellow-400 mb-3 block">High Impact</span>
+                            <h4 class="text-sm font-bold leading-tight mb-3">VinUni Research Grant: Next-Gen Electrolytes</h4>
+                            <p class="text-[10px] leading-relaxed text-zinc-300 font-light mb-4">i-PSD Lab awarded $2.5M for safety-centric electrolyte development.</p>
+                            <a href="#" class="text-[9px] font-bold uppercase tracking-widest border-b border-yellow-400/30 pb-1 hover:text-yellow-400 transition">Read Article</a>
+                        </div>
+
+                        <!-- Current News Feed -->
+                        <div class="border-l-2 border-zinc-100 pl-8 pt-4">
+                            <h4 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-zinc-400 mb-8 flex items-center gap-3">
+                                <span class="w-8 h-px bg-zinc-200"></span> Live Lab Updates
+                            </h4>
+                            
+                            <div class="space-y-10">
+                                <div class="nav-item-active">
+                                    <span class="text-[9px] font-bold text-blue-600 uppercase tracking-widest mb-2 block flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse"></span> Now Reading
+                                    </span>
+                                    <h5 class="text-sm font-extrabold text-[#001D3D] leading-tight mb-2 italic">Battery Thermal Runaway Chemistry Simulation</h5>
+                                    <p class="text-[10px] text-zinc-400 font-medium">Research Breakthrough • Feb 2026</p>
+                                </div>
+
+                                <a href="#" class="group block hover:translate-x-1 transition-transform">
+                                    <span class="text-[9px] font-bold text-zinc-300 uppercase tracking-widest mb-2 block group-hover:text-[#001D3D]">4 hours ago</span>
+                                    <h5 class="text-sm font-extrabold text-[#001D3D] group-hover:text-blue-600 transition-colors leading-tight mb-2">STAR-CCM+ HMMC Model Validation Complete</h5>
+                                    <p class="text-[10px] text-zinc-400 font-medium italic">Internal Update • Feb 2026</p>
+                                </a>
+
+                                <a href="#" class="group block hover:translate-x-1 transition-transform">
+                                    <span class="text-[9px] font-bold text-zinc-300 uppercase tracking-widest mb-2 block group-hover:text-[#001D3D]">Yesterday</span>
+                                    <h5 class="text-sm font-extrabold text-[#001D3D] group-hover:text-blue-600 transition-colors leading-tight mb-2">New Paper: Digital Twins in UAM Battery Safety</h5>
+                                    <p class="text-[10px] text-zinc-400 font-medium italic">Publication • Feb 2026</p>
+                                </a>
+                            </div>
+
+                            <div class="mt-12 pt-8 border-t border-zinc-50">
+                                <a href="/news.html" class="text-[10px] font-bold text-[#001D3D] uppercase tracking-[0.3em] flex items-center gap-3 group">
+                                    <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-2 transition-transform"></i> More Updates
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Research Meta -->
+                        <div class="technical-sidebar rounded-sm">
+                            <h4 class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#001D3D] mb-6 pb-2 border-b border-zinc-200">Research Focus</h4>
+                            <p class="text-xs text-zinc-500 font-light italic mb-6">
+                                This work is part of our "Safety-First" initiative in the Center for Environmental Intelligence.
+                            </p>
+                            <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:underline">View Research Paper</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <!-- Newsletter / Connect -->
+        <section id="contact" class="py-24 px-8 md:px-20 border-t border-zinc-100 bg-zinc-50/50">
+            <div class="max-w-4xl mx-auto text-center">
+                <h4 class="text-4xl font-extrabold mb-6 tracking-tight text-[#001D3D]">Join the <span class="text-zinc-300 italic font-light">Dialogue.</span></h4>
+                <p class="text-zinc-500 text-lg mb-10 font-light">Receive detailed research briefs and industrial partnership announcements.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Email Address" class="flex-grow bg-white border border-zinc-200 px-6 py-4 text-xs focus:border-[#001D3D] outline-none transition rounded-sm">
+                    <button type="submit" class="btn-brand">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-16 px-8 md:px-20 border-t border-zinc-100 bg-white">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center space-x-6">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-sm italic rounded-sm">i</div>
+                    <div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-[#001D3D] block">i-PSD LAB — © 2026</span>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Intelligence for Complex Engineering Challenges</span>
+                    </div>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
+                    <a href="#" class="hover:text-[#001D3D] transition">VinUniversity</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">CEI</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">i-PSD</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
