@@ -329,50 +329,56 @@
         </main>
 
         <!-- Recruitment -->
-        <section class="py-24 px-8 md:px-20 border-t border-[#e4e4e7] bg-[#fcfcfc]">
-            <div class="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto items-center">
+       <section id="contact" class="py-24 px-8 md:px-20 border-t border-zinc-100">
+            <div class="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto">
                 <div>
-                    <h4 class="text-5xl font-extrabold mb-10 tracking-tighter text-[#001D3D]">
-                        Join the <br/><span class="text-zinc-300 italic font-light">Laboratory.</span>
-                    </h4>
-                    <p class="text-zinc-500 text-lg mb-12 font-light leading-relaxed">
-                        We are actively recruiting ambitious MSc/PhD candidates and research assistants. 
-                        If you are passionate about the intersection of physics and AI, we want to hear from you.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <button class="bg-[#001D3D] text-white px-10 py-4 font-bold text-[10px] uppercase tracking-widest rounded-sm hover:bg-[#003566] transition transform hover:-translate-y-1">
-                            View Positions
-                        </button>
-                        <button class="border-2 border-[#001D3D] text-[#001D3D] px-10 py-4 font-bold text-[10px] uppercase tracking-widest rounded-sm hover:bg-[#001D3D] hover:text-white transition">
-                            Contact PI
-                        </button>
+                    <h4 class="text-5xl font-extrabold mb-10 tracking-tighter text-[#001D3D]">Join the <br/><span class="text-zinc-300 italic font-light">Laboratory</span></h4>
+                    <p class="text-zinc-500 text-lg mb-12 font-light">We are recruiting ambitious MSc/PhD candidates and research assistants. If you are passionate about the intersection of physics and AI, let's talk.</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-10">
+                        <div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-4">Inquiries</span>
+                            <div class="space-y-3">
+                                <a href="mailto:Ahmad.h@vinuni.edu.vn" class="block text-sm font-semibold hover:text-blue-600 transition text-[#001D3D]">Ahmad.h@vinuni.edu.vn</a>
+                                <a href="mailto:Hung.ph@vinuni.edu.vn" class="block text-sm font-semibold hover:text-blue-600 transition text-[#001D3D]">Hung.ph@vinuni.edu.vn</a>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-4">Location</span>
+                            <p class="text-sm font-medium text-zinc-600 leading-relaxed">i-PSD Lab<br/>VinUniversity, Hanoi, Vietnam</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="p-10 border border-[#e4e4e7] bg-white shadow-xl rounded-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#f8fafc] -mr-12 -mt-12 rotate-45 border-b border-[#e4e4e7]"></div>
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="p-3 bg-blue-50 rounded-sm">
-                            <i class="fa-solid fa-book-open text-[#001D3D] text-xl"></i>
-                        </div>
-                        <h5 class="font-bold text-[#001D3D] uppercase tracking-widest text-xs">Application Inquiry</h5>
-                    </div>
-                    <div class="space-y-6">
-                        <p class="text-xs text-zinc-500 leading-relaxed font-light">
-                            Please prepare your CV and a brief research statement regarding your interest in 
-                            Multiscale Modeling or Digital Twins.
-                        </p>
-                        <div class="pt-6 border-t border-zinc-100 space-y-4">
-                            <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-                                <span class="text-zinc-400 italic">Faculty Lead</span>
-                                <a href="mailto:ahmad.h@vinuni.edu.vn" class="text-[#001D3D] hover:underline">ahmad.h@vinuni.edu.vn</a>
+                <div class="p-10 border border-zinc-200 bg-white shadow-xl rounded-sm">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Full Name</label>
+                                <input type="text" id="senderName" required placeholder="Name" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs focus:border-[#001D3D] outline-none transition">
                             </div>
-                            <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
-                                <span class="text-zinc-400 italic">Engineering Lead</span>
-                                <a href="mailto:hung.ph@vinuni.edu.vn" class="text-[#001D3D] hover:underline">hung.ph@vinuni.edu.vn</a>
+                            <div>
+                                <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Subject</label>
+                                <select id="inquiryTopic" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-[10px] font-bold uppercase tracking-widest focus:border-[#001D3D] outline-none transition">
+                                    <option value="Join (PhD/PostDoc)">PhD / PostDoc Positions</option>
+                                    <option value="Industry Collaboration">Industry Collaboration</option>
+                                    <option value="Research Project">Research Project</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
+                        <div>
+                            <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Proposal / Message</label>
+                            <textarea id="message" rows="4" placeholder="Briefly describe your interest..." class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs focus:border-[#001D3D] outline-none transition resize-none"></textarea>
+                        </div>
+                        <div class="file-upload-wrapper p-8 text-center rounded-sm">
+                            <input type="file" id="file-input" class="hidden">
+                            <label for="file-input" class="cursor-pointer">
+                                <i class="fas fa-file-pdf text-zinc-300 text-2xl mb-2 block"></i>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Attach CV / Proposal</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full btn-brand py-4 font-bold text-xs">Submit Application</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -494,3 +500,4 @@
     </script>
 
 </html>
+
