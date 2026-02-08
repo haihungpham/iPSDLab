@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-PSD Lab | Engineering Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --accent: #001D3D;
+            --accent-hover: #003566;
+            --muted: #71717a;
+            --border: #e4e4e7;
+            --surface: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Frame */
+        .site-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.02);
+            min-height: 100vh;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .dot-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#e5e5e5 0.8px, transparent 0.8px);
+            background-size: 32px 32px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-label::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .btn-brand {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.85rem 2.25rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-brand:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 29, 61, 0.2);
+        }
+
+        .file-upload-wrapper {
+            border: 2px dashed var(--border);
+            transition: border-color 0.3s ease;
+        }
+        .file-upload-wrapper:hover {
+            border-color: var(--accent);
+        }
+
+        /* Map specific styles to maintain strict design harmony */
+        .map-container {
+            filter: grayscale(1);
+            transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .map-container:hover {
+            filter: grayscale(0);
+        }
+        
+        .tab-btn {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 1.5rem 0;
+            color: #d1d5db;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active { color: var(--accent); }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--accent);
+        }
+
+        .member-card img {
+            filter: grayscale(100%);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .member-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        .member-overlay {
+            background: linear-gradient(to top, rgba(0, 29, 61, 0.9) 0%, transparent 100%);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+        .member-card:hover .member-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .founder-tag {
+            background: var(--accent); color: white; padding: 2px 6px; font-size: 10px; border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dot-bg"></div>
+
+    <div class="site-container">
+        <!-- Top Utility Bar -->
+        <div class="border-b border-zinc-100 bg-white sticky top-0 z-[60]">
+            <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">VinUni Center for Environmental Intelligence</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#001D3D] transition">Portal</a>
+                    <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-[#001D3D] hover:underline transition">Connect</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="sticky top-[37px] z-50 glass-nav border-b border-zinc-100">
+            <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="/" class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-xl italic rounded-sm">i</div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight text-[#001D3D]">i-PSD LAB</h1>
+                        <p class="text-[9px] text-zinc-400 font-bold uppercase tracking-widest leading-none">Engineering Intelligence</p>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+					<a href="/team.html" class="hover:text-blue-600 transition">Team</a>
+		            <a href="/research.html" class="hover:text-blue-600 transition">Research</a>
+                    <a href="/projects.html" class="hover:text-blue-600 transition">Projects</a>
+                    <a href="/news.html" class="hover:text-blue-600 transition">News</a>
+                    <a href="/courses.html" class="hover:text-blue-600 transition">Courses</a>
+                    <a href="/opp.html" class="hover:text-blue-600 transition">Opportunities</a>
+                    <a href="/contact.html" class="btn-brand !py-2 !px-4">Get Involved</a>
+                </div>
+            </div>
+        </nav>
+		
+		<!-- Hero Section -->
+        <header class="pt-24 pb-16 px-8 md:px-20 bg-gradient-to-b from-white to-zinc-50/50">
+            <div class="max-w-4xl">
+				<div class="section-label mb-20">Contact & Location</div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-[#001D3D] mb-8 tracking-tight">
+                    Get in <span class="text-zinc-300 italic font-light">Touch.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl">
+                    Located at the <span class="text-[#001D3D] font-semibold">VinUniversity Campus</span> in Hanoi, we welcome collaborations that push the boundaries of engineering intelligence.
+                </p>
+            </div>
+        </header>
+		
+        <!-- Map Section -->
+        <section class="border-t border-zinc-100 bg-white">
+            <div class="grid lg:grid-cols-4 items-stretch">
+                <!-- Location Info Block -->
+                <div class="p-12 md:p-20 lg:border-r border-zinc-100 flex flex-col justify-center">
+                    <div class="section-label mb-8">Location</div>
+                    <h5 class="text-2xl font-extrabold text-[#001D3D] mb-4 tracking-tight">Visit i-PSD Lab</h5>
+                    <address class="not-italic text-sm text-zinc-500 font-light leading-relaxed mb-10">
+                        Vinhomes Ocean Park, <br/>
+                        Gia Lam District,<br/>
+                        Hanoi, Vietnam
+                    </address>
+                    <a href="https://maps.app.goo.gl/YourSpecificLinkHere" target="_blank" class="text-[10px] font-bold text-[#001D3D] uppercase tracking-[0.2em] flex items-center gap-3 group">
+                        Navigate to Campus 
+                        <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-2"></i>
+                    </a>
+                </div>
+
+                <!-- Map Frame -->
+                <div class="lg:col-span-3 h-[450px] lg:h-auto min-h-[450px] map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.073153199427!2d105.94532584999999!3d20.98970455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135af3984bd28cf%3A0xbaa291d71d22ba35!2zQ-G7lW5nIMSQ4bqhaSBo4buNYyBWaW5Vbmk!5e0!3m2!1sen!2s!4v1770576077194!5m2!1sen!2s"
+                        class="w-full h-full border-0" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recruitment & Form Section -->
+       <section id="contact" class="py-24 px-8 md:px-20 border-t border-zinc-100">
+            <div class="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto">
+                <div>
+                    <h4 class="text-5xl font-extrabold mb-10 tracking-tighter text-[#001D3D]">Connect <br/><span class="text-zinc-300 italic font-light">with us</span></h4>
+                    <p class="text-zinc-500 text-lg mb-12 font-light">If you are passionate about the intersection of physics and AI, let's talk.</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-10">
+                        <div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-4">Inquiries</span>
+                            <div class="space-y-3">
+                                <a href="mailto:Ahmad.h@vinuni.edu.vn" class="block text-sm font-semibold hover:text-blue-600 transition text-[#001D3D]">Ahmad.h@vinuni.edu.vn</a>
+                                <a href="mailto:Hung.ph@vinuni.edu.vn" class="block text-sm font-semibold hover:text-blue-600 transition text-[#001D3D]">Hung.ph@vinuni.edu.vn</a>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-4">Laboratory Office</span>
+                            <p class="text-sm font-medium text-zinc-600 leading-relaxed">Room 402, Building C<br/>VinUniversity, Hanoi, Vietnam</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-10 border border-zinc-200 bg-white shadow-xl rounded-sm">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Full Name</label>
+                                <input type="text" id="senderName" required placeholder="Name" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs focus:border-[#001D3D] outline-none transition">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Subject</label>
+                                <select id="inquiryTopic" class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-[10px] font-bold uppercase tracking-widest focus:border-[#001D3D] outline-none transition">
+                                    <option value="Join (PhD/PostDoc)">PhD / PostDoc Positions</option>
+                                    <option value="Industry Collaboration">Industry Collaboration</option>
+                                    <option value="Research Project">Research Project</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 block mb-2">Proposal / Message</label>
+                            <textarea id="message" rows="4" placeholder="Briefly describe your interest..." class="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 text-xs focus:border-[#001D3D] outline-none transition resize-none"></textarea>
+                        </div>
+                        <div class="file-upload-wrapper p-8 text-center rounded-sm">
+                            <input type="file" id="file-input" class="hidden">
+                            <label for="file-input" class="cursor-pointer">
+                                <i class="fas fa-file-pdf text-zinc-300 text-2xl mb-2 block"></i>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Attach CV / Proposal</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full btn-brand py-4 font-bold text-xs">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+		
+		<!-- Footer -->
+        <footer class="py-16 px-8 md:px-20 border-t border-zinc-100 bg-white">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center space-x-6">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-sm italic rounded-sm">i</div>
+                    <div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-[#001D3D] block">i-PSD LAB — © 2026</span>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Intelligence for Complex Engineering Challenges</span>
+                    </div>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
+                    <a href="#" class="hover:text-[#001D3D] transition">VinUniversity</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">CEI</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">i-PSD</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
