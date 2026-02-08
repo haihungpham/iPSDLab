@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i-PSD Lab | Engineering Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --accent: #001D3D;
+            --accent-hover: #003566;
+            --muted: #71717a;
+            --border: #e4e4e7;
+            --surface: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Frame */
+        .site-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.02);
+            min-height: 100vh;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .dot-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(#e5e5e5 0.8px, transparent 0.8px);
+            background-size: 32px 32px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-label::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .nau-card {
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nau-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 29, 61, 0.06);
+        }
+
+        .partner-logo {
+            filter: grayscale(1) opacity(0.4);
+            transition: all 0.4s ease;
+            max-height: 28px;
+            width: auto;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0) opacity(1);
+        }
+
+        .btn-brand {
+            background: var(--accent);
+            color: #fff;
+            padding: 0.85rem 2.25rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-brand:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 29, 61, 0.2);
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--accent);
+            padding: 0.85rem 2.25rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #f97316;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(249, 115, 22, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+
+        .pub-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 80px;
+            gap: 2rem;
+            align-items: start;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .pub-row:hover {
+            background: var(--surface);
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .file-upload-wrapper {
+            border: 2px dashed var(--border);
+            transition: border-color 0.3s ease;
+        }
+        .file-upload-wrapper:hover {
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .pub-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+        .tab-btn {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 1.5rem 0;
+            color: #d1d5db;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .member-card img {
+            filter: grayscale(100%);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .member-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .member-overlay {
+            background: linear-gradient(to top, rgba(0, 29, 61, 0.9) 0%, transparent 100%);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .member-card:hover .member-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .founder-tag {
+            background: var(--accent);
+            color: white;
+            padding: 2px 6px;
+            font-size: 10px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dot-bg"></div>
+
+    <div class="site-container">
+        <!-- Top Utility Bar -->
+        <div class="border-b border-zinc-100 bg-white sticky top-0 z-[60]">
+            <div class="container mx-auto px-6 py-2 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">VinUni Center for Environmental Intelligence</span>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#001D3D] transition">Portal</a>
+                    <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-[#001D3D] hover:underline transition">Connect</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="sticky top-[37px] z-50 glass-nav border-b border-zinc-100">
+            <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-xl italic rounded-sm">i</div>
+                    <div>
+                        <h1 class="font-extrabold text-base tracking-tight text-[#001D3D]">i-PSD LAB</h1>
+                        <p class="text-[9px] text-zinc-400 font-bold uppercase tracking-widest leading-none">Engineering Intelligence</p>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-8 text-[11px] font-bold uppercase tracking-[0.2em]">
+					<a href="/team.html" class="hover:text-blue-600 transition">Team</a>
+		            <a href="#research" class="hover:text-blue-600 transition">Research</a>
+                    <a href="#projects" class="hover:text-blue-600 transition">Projects</a>
+                    <a href="#publications" class="hover:text-blue-600 transition">News</a>
+                    <a href="#courses" class="hover:text-blue-600 transition">Courses</a>
+                    <a href="/opp.html" class="hover:text-blue-600 transition">Opportunities</a>
+                    <a href="#contact" class="btn-brand !py-2 !px-4">Get Involved</a>
+                </div>
+            </div>
+        </nav>
+		
+		<!-- Hero -->
+        <header class="pt-24 pb-16 px-8 md:px-20 bg-gradient-to-b from-white to-zinc-50/50">
+            <div class="max-w-4xl">
+                <div class="inline-flex items-center px-4 py-1.5 bg-[#f8fafc] border border-[#e4e4e7] rounded-sm text-[10px] font-bold uppercase tracking-widest mb-8">
+                    <i class="fa-solid fa-users mr-2 text-zinc-400"></i> 01 / Team Members
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-[#001D3D] mb-8 tracking-tight">
+                    Our <span class="text-zinc-300 italic font-light">Team.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl">
+                    Co-founded by researchers in academic research and industrial engineering, our lab bridges 
+                    <span class="text-[#001D3D] font-semibold">Scientific Fundamentals</span> and 
+                    <span class="text-[#001D3D] font-semibold">Practical Innovation</span>.
+                </p>
+            </div>
+        </header>
+		
+		        <!-- Tabs -->
+        <div class="px-8 md:px-20 mb-12 flex items-center justify-between border-b border-zinc-100 sticky top-[110px] bg-white/90 backdrop-blur-md z-40">
+            <div class="flex space-x-10">
+                <button onclick="filterMembers('Founders')" class="tab-btn active" id="btn-Founders">Founders</button>
+                <button onclick="filterMembers('Current Members')" class="tab-btn" id="btn-Current">Current Members</button>
+                <button onclick="filterMembers('Alumni')" class="tab-btn" id="btn-Alumni">Alumni</button>
+            </div>
+            <div class="hidden sm:block text-[10px] font-bold text-zinc-300 uppercase tracking-[0.3em]">
+                Est. 2026 / VinUniversity
+            </div>
+        </div>
+
+        <!-- Members Container -->
+        <main class="px-8 md:px-20 pb-32 flex-grow">
+            <div id="membersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 max-w-5xl gap-12">
+                <!-- Member cards injected here via JS -->
+            </div>
+        </main>
+
+        <!-- Recruitment -->
+        <section class="py-24 px-8 md:px-20 border-t border-[#e4e4e7] bg-[#fcfcfc]">
+            <div class="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto items-center">
+                <div>
+                    <h4 class="text-5xl font-extrabold mb-10 tracking-tighter text-[#001D3D]">
+                        Join the <br/><span class="text-zinc-300 italic font-light">Laboratory.</span>
+                    </h4>
+                    <p class="text-zinc-500 text-lg mb-12 font-light leading-relaxed">
+                        We are actively recruiting ambitious MSc/PhD candidates and research assistants. 
+                        If you are passionate about the intersection of physics and AI, we want to hear from you.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-[#001D3D] text-white px-10 py-4 font-bold text-[10px] uppercase tracking-widest rounded-sm hover:bg-[#003566] transition transform hover:-translate-y-1">
+                            View Positions
+                        </button>
+                        <button class="border-2 border-[#001D3D] text-[#001D3D] px-10 py-4 font-bold text-[10px] uppercase tracking-widest rounded-sm hover:bg-[#001D3D] hover:text-white transition">
+                            Contact PI
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-10 border border-[#e4e4e7] bg-white shadow-xl rounded-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#f8fafc] -mr-12 -mt-12 rotate-45 border-b border-[#e4e4e7]"></div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="p-3 bg-blue-50 rounded-sm">
+                            <i class="fa-solid fa-book-open text-[#001D3D] text-xl"></i>
+                        </div>
+                        <h5 class="font-bold text-[#001D3D] uppercase tracking-widest text-xs">Application Inquiry</h5>
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-xs text-zinc-500 leading-relaxed font-light">
+                            Please prepare your CV and a brief research statement regarding your interest in 
+                            Multiscale Modeling or Digital Twins.
+                        </p>
+                        <div class="pt-6 border-t border-zinc-100 space-y-4">
+                            <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
+                                <span class="text-zinc-400 italic">Faculty Lead</span>
+                                <a href="mailto:ahmad.h@vinuni.edu.vn" class="text-[#001D3D] hover:underline">ahmad.h@vinuni.edu.vn</a>
+                            </div>
+                            <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest">
+                                <span class="text-zinc-400 italic">Engineering Lead</span>
+                                <a href="mailto:hung.ph@vinuni.edu.vn" class="text-[#001D3D] hover:underline">hung.ph@vinuni.edu.vn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+		
+		<!-- Footer -->
+        <footer class="py-16 px-8 md:px-20 border-t border-zinc-100 bg-white">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center space-x-6">
+                    <div class="w-10 h-10 bg-[#001D3D] text-white flex items-center justify-center font-black text-sm italic rounded-sm">i</div>
+                    <div>
+                        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-[#001D3D] block">i-PSD LAB — © 2026</span>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">Intelligence for Complex Engineering Challenges</span>
+                    </div>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">
+                    <a href="#" class="hover:text-[#001D3D] transition">VinUniversity</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">CEI</a>
+                    <a href="#" class="hover:text-[#001D3D] transition">i-PSD</a>
+                </div>
+            </div>
+        </footer>
+		
+    <script>
+        const members = [
+            {
+                name: "Dr. Ahmad Hajjar.",
+                role: "Founder / Principal Investigator",
+                category: "Founders",
+                bio: "Leading the academic and theoretical research agenda. Focused on the core scientific principles of Intelligent Power and Sensor Design.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+                links: { mail: "ahmad.h@vinuni.edu.vn", linkedin: "#", scholar: "#" }
+            },
+            {
+                name: "Dr. Hai Hung Pham (Harry)",
+                role: "Founder / Industry Lead",
+                category: "Founders",
+                bio: "Driving engineering excellence and industrial translation. Expert in Multiscale Modeling and Thermal Management for real-world applications.",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
+                links: { mail: "hung.ph@vinuni.edu.vn", linkedin: "#", scholar: "#" }
+            },
+            {
+                name: "Sarah Chen",
+                role: "Ph.D. Candidate",
+                category: "Current Members",
+                bio: "Researching multiscale modeling and PCM analysis for high-density compute thermal management.",
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+                links: { github: "#", mail: "schen@vinuni.edu.vn" }
+            },
+            {
+                name: "Marcus Wei",
+                role: "Ph.D. Student",
+                category: "Current Members",
+                bio: "Specializing in EV Battery Safety Digital Twins and predictive thermal runaway modeling.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+                links: { linkedin: "#", github: "#" }
+            },
+            {
+                name: "Elena Rodriguez",
+                role: "M.S. Student",
+                category: "Current Members",
+                bio: "Developing hybrid physics-AI digital twins for energy-efficient building automation.",
+                image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+                links: { mail: "elena@vinuni.edu.vn" }
+            },
+            {
+                name: "Dr. Kevin Park",
+                role: "Post-Doc Researcher",
+                category: "Alumni",
+                bio: "Now an Assistant Professor at Tech University. Focused on CSTR thermal kinetics.",
+                image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+                links: { linkedin: "#" }
+            }
+        ];
+
+        function filterMembers(category) {
+            const grid = document.getElementById('membersGrid');
+            const filtered = members.filter(m => m.category === category);
+            
+            // Toggle active buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(category === 'Founders') document.getElementById('btn-Founders').classList.add('active');
+            if(category === 'Current Members') document.getElementById('btn-Current').classList.add('active');
+            if(category === 'Alumni') document.getElementById('btn-Alumni').classList.add('active');
+
+            // Adjust grid columns based on category
+            if(category === 'Founders') {
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 max-w-5xl gap-12";
+            } else {
+                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12";
+            }
+
+            grid.innerHTML = filtered.map(member => `
+                <div class="member-card group flex flex-col ${category === 'Founders' ? 'bg-[#fcfcfc]/50 p-6 border border-zinc-100 rounded-sm' : ''}">
+                    <div class="relative aspect-[1/1.2] mb-6 overflow-hidden bg-[#f8fafc] border border-[#e4e4e7] transition-all duration-500 group-hover:border-[#001D3D]">
+                        <img src="${member.image}" alt="${member.name}" class="w-full h-full object-cover">
+                        <div class="member-overlay absolute inset-x-0 bottom-0 h-1/2 flex items-end p-8">
+                            <div class="flex gap-4">
+                                ${member.links.mail ? `<a href="mailto:${member.links.mail}" class="w-9 h-9 flex items-center justify-center bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-all rounded-sm"><i class="fa-solid fa-envelope text-xs"></i></a>` : ''}
+                                ${member.links.linkedin ? `<a href="${member.links.linkedin}" class="w-9 h-9 flex items-center justify-center bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-all rounded-sm"><i class="fa-brands fa-linkedin-in text-xs"></i></a>` : ''}
+                                ${member.links.scholar ? `<a href="${member.links.scholar}" class="w-9 h-9 flex items-center justify-center bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-all rounded-sm"><i class="fa-solid fa-graduation-cap text-xs"></i></a>` : ''}
+                                ${member.links.github ? `<a href="${member.links.github}" class="w-9 h-9 flex items-center justify-center bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20 transition-all rounded-sm"><i class="fa-brands fa-github text-xs"></i></a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <h3 class="text-xl font-extrabold text-[#001D3D] tracking-tight group-hover:text-blue-700 transition-colors">${member.name}</h3>
+                        ${category === 'Founders' ? `<span class="founder-tag"><i class="fa-solid fa-star text-[8px]"></i></span>` : ''}
+                    </div>
+                    <p class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">${member.role}</p>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed border-l-2 border-zinc-100 pl-4 py-1 group-hover:border-[#001D3D] transition-colors italic">
+                        "${member.bio}"
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize with Founders
+        window.onload = () => filterMembers('Founders');
+    </script>
+</html>
